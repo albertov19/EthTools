@@ -1,7 +1,7 @@
 import * as ethers from 'ethers';
 
 // Define the TxHash to Check Finality
-const txHash = '0xbd608b77c9610eb6de36a14ee924b16716c4e3c24824f414886eb8d73f07e40f';
+const txHash = 'tx_hash';
 
 // Define the RPC of the Provider
 const providerRPC = {

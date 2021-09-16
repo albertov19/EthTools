@@ -1,7 +1,7 @@
 import * as ethers from 'ethers';
 
-// Define the TxHash to Check Finality
-const blockNumber = '6000000';
+// Define the block number to check (i.e. 525475)
+const blockNumber = 'block_number_uint';
 
 // Define the RPC of the Provider
 const providerRPC = {
