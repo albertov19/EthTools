@@ -1,7 +1,7 @@
 import * as ethers from 'ethers';
 
 // Define the TxHash to Check Finality
-const blockNumber = '525475';
+const blockNumber = '6000000';
 
 // Define the RPC of the Provider
 const providerRPC = {
@@ -20,16 +20,11 @@ const web3Provider = new ethers.providers.JsonRpcProvider(providerRPC.moonriver.
 
 // Define the function for the Custom Web3 Request
 const customWeb3Request = async (web3Provider, method, params) => {
-  return web3Provider.send(method, params, (error, result) => {
-    if (error) {
-      reject(
-        `Failed to send custom request (${method} (${params.join(',')})): ${
-          error.message || error.toString()
-        }`
-      );
-    }
-    resolve(result);
-  });
+  try {
+    return await web3Provider.send(method, params);
+  } catch (error) {
+    throw new Error(error.body);
+  }
 };
 
 const main = async () => {

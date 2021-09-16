@@ -20,16 +20,11 @@ const web3Provider = new ethers.providers.JsonRpcProvider(providerRPC.moonriver.
 
 // Define the function for the Custom Web3 Request
 const customWeb3Request = async (web3Provider, method, params) => {
-  return web3Provider.send(method, params, (error, result) => {
-    if (error) {
-      reject(
-        `Failed to send custom request (${method} (${params.join(',')})): ${
-          error.message || error.toString()
-        }`
-      );
-    }
-    resolve(result);
-  });
+  try {
+    return await web3Provider.send(method, params);
+  } catch (error) {
+    throw new Error(error.body);
+  }
 };
 
 const main = async () => {
@@ -47,10 +42,12 @@ const main = async () => {
   // Get the transaction receipt of the given tx hash
   // Uses Ethereum JSON-RPC
   const txReceipt = await customWeb3Request(web3Provider, 'eth_getTransactionReceipt', [txHash]);
-  const txBlockNumber = parseInt(txReceipt.blockNumber, 16);
 
   // If block number of receipt is not null, compare it against finalized head
-  if (txReceipt.blockNumber) {
+  if (txReceipt) {
+    // Convert to Number
+    const txBlockNumber = parseInt(txReceipt.blockNumber, 16);
+
     console.log(`Current finalized block number is ${finalizedBlockNumber}`);
     console.log(
       `Your transaction in block ${txBlockNumber} is finalized? ${
