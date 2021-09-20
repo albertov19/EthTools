@@ -1,7 +1,7 @@
-import * as ethers from 'ethers';
+import ethers from 'ethers';
 
-// Define the TxHash to Check Finality
-const txHash = 'tx_hash';
+// Define the block number to check (i.e. 525475)
+const blockNumber = 'block_number_uint';
 
 // Define the RPC of the Provider
 const providerRPC = {
@@ -39,24 +39,9 @@ const main = async () => {
   ]);
   const finalizedBlockNumber = parseInt(finalizedBlockHeader.number, 16);
 
-  // Get the transaction receipt of the given tx hash
-  // Uses Ethereum JSON-RPC
-  const txReceipt = await customWeb3Request(web3Provider, 'eth_getTransactionReceipt', [txHash]);
-
   // If block number of receipt is not null, compare it against finalized head
-  if (txReceipt) {
-    // Convert to Number
-    const txBlockNumber = parseInt(txReceipt.blockNumber, 16);
-
-    console.log(`Current finalized block number is ${finalizedBlockNumber}`);
-    console.log(
-      `Your transaction in block ${txBlockNumber} is finalized? ${
-        finalizedBlockNumber >= txBlockNumber
-      }`
-    );
-  } else {
-    console.log('Your transaction has not been included in the canonical chain');
-  }
+  console.log(`Current finalized block number is ${finalizedBlockNumber}`);
+  console.log(`Is your block ${blockNumber} final? ${finalizedBlockNumber >= blockNumber}`);
 };
 
 main();
