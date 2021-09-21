@@ -1,3 +1,9 @@
+/*
+  Simple code snippet to check if an Ethereum Tx Hash has been finalized. 
+  It will fetch the block number of the tx and compare it with the latest
+  finalized block. Uses Ethers.js for custom RPC requests from the Substrate
+  JSON-RPC.
+*/
 import ethers from 'ethers';
 
 // Define the TxHash to Check Finality
