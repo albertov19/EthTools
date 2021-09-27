@@ -57,7 +57,7 @@ const main = async () => {
 
   // If block number of receipt is not null, compare it against finalized head
   console.log(`Current finalized block number is ${finalizedBlockNumber}`);
-  console.log(`Is your block ${blockNumber} final? ${finalizedBlockNumber >= blockNumber}`);
+  console.log(`Is your block ${blockNumber} finalized? ${finalizedBlockNumber >= blockNumber}`);
 };
 
 main();
