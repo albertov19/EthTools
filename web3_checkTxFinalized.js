@@ -72,11 +72,23 @@ const main = async () => {
     // Convert to Number
     const txBlockNumber = parseInt(txReceipt.result.blockNumber, 16);
 
+    // As a safety check, get given block to check if transaction is included
+    // Uses Ethereum JSON-RPC
+    const txBlock = await customWeb3Request(web3.currentProvider, 'eth_getBlockByNumber', [
+      txBlockNumber,
+      false,
+    ]);
+
     console.log(`Current finalized block number is ${finalizedBlockNumber}`);
     console.log(
       `Your transaction in block ${txBlockNumber} is finalized? ${
         finalizedBlockNumber >= txBlockNumber
       }`
+    );
+    console.log(
+      `Your transaction is indeed in block ${txBlockNumber}? ${txBlock.result.transactions.includes(
+        txHash
+      )}`
     );
   } else {
     console.log('Your transaction has not been included in the canonical chain');

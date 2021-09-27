@@ -1,9 +1,3 @@
-/*
-  Simple code snippet to check if an Ethereum Tx Hash has been finalized. 
-  It will fetch the block number of the tx and compare it with the latest
-  finalized block. Uses Ethers.js for custom RPC requests from the Substrate
-  JSON-RPC.
-*/
 import ethers from 'ethers';
 
 // Define the TxHash to Check Finality
@@ -54,11 +48,23 @@ const main = async () => {
     // Convert to Number
     const txBlockNumber = parseInt(txReceipt.blockNumber, 16);
 
+    // As a safety check, get given block to check if transaction is included
+    // Uses Ethereum JSON-RPC
+    const txBlock = await customWeb3Request(web3Provider, 'eth_getBlockByNumber', [
+      txBlockNumber,
+      false,
+    ]);
+
     console.log(`Current finalized block number is ${finalizedBlockNumber}`);
     console.log(
       `Your transaction in block ${txBlockNumber} is finalized? ${
         finalizedBlockNumber >= txBlockNumber
       }`
+    );
+    console.log(
+      `Your transaction in indeed in block ${txBlockNumber}? ${txBlock.transactions.includes(
+        txHash
+      )}`
     );
   } else {
     console.log('Your transaction has not been included in the canonical chain');
