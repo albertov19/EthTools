@@ -14,7 +14,6 @@ yarn
 
 Then, run script with `node`.
 
-
 ## Scripts
 
 `calculateContractAddress` Shows the standard way contract address are calculated on Ethereum (nonce and public address)
