@@ -25,3 +25,5 @@ Then, run script with `node`.
 
 `web3py_checkTxFinalized`  and `ethers_checkTxFinalized` do the same thing. Given a tx hash, it will check if that transaction is included in a finalized block. Uses a web3 provider (custom RPC request) with the Substrate JSON-RPC
 
+Others...
+
