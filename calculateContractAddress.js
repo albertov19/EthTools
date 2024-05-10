@@ -7,8 +7,8 @@ import * as ethers from 'ethers';
 import * as RLP from 'rlp';
 
 // Provide Public Address (with 0x) and Nonce
-const address = '0x7AbCE41C5153d199EafFf2Cd80B43ADf4C71F8f6';
-let nonce = 3; //<--- Enter nonce here
+const address = '0x6Be02d1d3665660d22FF9624b7BE0551ee1Ac91b';
+let nonce = 0; //<--- Enter nonce here
 
 // If we want to find a specific nonce for contract deployment
 const findFlag = 0;
